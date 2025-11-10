@@ -5,6 +5,8 @@ import '../menu_management_page.dart';
 import '../inventory_page.dart';
 import '../sales_page.dart';
 import '../expenses_page.dart';
+import 'package:google_fonts/google_fonts.dart';
+
 
 class ManagerPageUI extends StatelessWidget {
   final bool isSidebarOpen;
@@ -178,79 +180,88 @@ class ManagerPageUI extends StatelessWidget {
             child: Column(
               children: [
                 // Top bar
-                Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-                  decoration: const BoxDecoration(
-                    color: Colors.white,
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black12,
-                        blurRadius: 6,
-                        offset: Offset(0, 3),
-                      ),
-                    ],
-                  ),
-                  child: Row(
-                    children: [
-                      IconButton(
-                        icon: Icon(
-                          isSidebarOpen ? Icons.arrow_back_ios : Icons.menu,
-                          color: Colors.orange.shade700,
-                        ),
-                        onPressed: toggleSidebar,
-                      ),
-                      const SizedBox(width: 10),
-                      Text(
-                        "Manager - Raw Materials",
-                        style: TextStyle(
-                          fontSize: 22,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.grey[800],
-                        ),
-                      ),
-                      const Spacer(),
-                      ElevatedButton.icon(
-                        onPressed: onShowHiddenToggle,
-                        icon: Icon(
-                          showHidden
-                              ? Icons.visibility
-                              : Icons.visibility_off,
-                          color: Colors.white,
-                        ),
-                        label: Text(
-                          showHidden ? "Visible Items" : "Hidden Items",
-                          style: const TextStyle(color: Colors.white),
-                        ),
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor:
-                              showHidden ? Colors.green : Colors.redAccent,
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 18, vertical: 12),
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8)),
-                        ),
-                      ),
-                      const SizedBox(width: 12),
-                      ElevatedButton.icon(
-                        onPressed: onAddEntry,
-                        icon: const Icon(Icons.add, color: Colors.white),
-                        label: const Text(
-                          "Add Entry",
-                          style: TextStyle(color: Colors.white),
-                        ),
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.orange.shade700,
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 18, vertical: 12),
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8)),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-
+                // Top bar styled like Sales Report header (floating container with soft shadow)
+// Top bar styled like Sales Report (same font + floating container)
+Padding(
+  padding: const EdgeInsets.fromLTRB(24, 20, 24, 10),
+  child: Container(
+    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+    decoration: BoxDecoration(
+      color: Colors.white,
+      borderRadius: BorderRadius.circular(12),
+      boxShadow: [
+        BoxShadow(
+          color: Colors.black.withOpacity(0.15),
+          blurRadius: 8,
+          offset: const Offset(0, 4),
+        ),
+      ],
+    ),
+    child: Row(
+      children: [
+        IconButton(
+          icon: Icon(
+            isSidebarOpen ? Icons.arrow_back_ios : Icons.menu,
+            color: Colors.orange,
+          ),
+          onPressed: toggleSidebar,
+        ),
+        const SizedBox(width: 10),
+        Text(
+          "Manager - Raw Materials",
+          style: GoogleFonts.poppins(
+            fontSize: 22,
+            fontWeight: FontWeight.bold,
+            color: Colors.black87,
+          ),
+        ),
+        const Spacer(),
+        ElevatedButton.icon(
+          onPressed: onShowHiddenToggle,
+          icon: Icon(
+            showHidden ? Icons.visibility : Icons.visibility_off,
+            color: Colors.white,
+          ),
+          label: Text(
+            showHidden ? "Visible Items" : "Hidden Items",
+            style: GoogleFonts.poppins(
+              fontSize: 14,
+              color: Colors.white,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+          style: ElevatedButton.styleFrom(
+            backgroundColor: showHidden ? Colors.green : Colors.redAccent,
+            padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 12),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(8),
+            ),
+          ),
+        ),
+        const SizedBox(width: 12),
+        ElevatedButton.icon(
+          onPressed: onAddEntry,
+          icon: const Icon(Icons.add, color: Colors.white),
+          label: Text(
+            "Add Entry",
+            style: GoogleFonts.poppins(
+              fontSize: 14,
+              color: Colors.white,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Colors.orange,
+            padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 12),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(8),
+            ),
+          ),
+        ),
+      ],
+    ),
+  ),
+),
                 // === AUTO-EXPANDING TABLE ===
                 Expanded(
                   child: isLoading
