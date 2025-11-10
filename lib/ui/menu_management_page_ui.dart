@@ -5,6 +5,7 @@ import '../menu_management_page.dart';
 import '../inventory_page.dart';
 import '../sales_page.dart';
 import '../expenses_page.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class MenuManagementPageUI extends StatelessWidget {
   final bool isSidebarOpen;
@@ -176,15 +177,20 @@ class MenuManagementPageUI extends StatelessWidget {
     return Scaffold(
       body: Stack(
         children: [
-          Container(
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                colors: [Colors.black, Colors.grey[900]!, Colors.black],
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-              ),
-            ),
-          ),
+          // === BACKGROUND GRADIENT ===
+Container(
+  decoration: BoxDecoration(
+    gradient: LinearGradient(
+      colors: [
+        const Color(0xFFF6F7FB),
+        Colors.white.withOpacity(0.9),
+      ],
+      begin: Alignment.topLeft,
+      end: Alignment.bottomRight,
+    ),
+  ),
+),
+
           Row(
             children: [
               Sidebar(
@@ -290,39 +296,87 @@ class MenuManagementPageUI extends StatelessWidget {
               Expanded(
                 child: Column(
                   children: [
-                    // TOP BAR
-                    Container(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 20, vertical: 15),
-                      decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          colors: [Colors.black, Colors.grey[900]!],
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
-                        ),
-                      ),
-                      child: Row(
-                        children: [
-                          IconButton(
-                            icon: Icon(
-                              isSidebarOpen ? Icons.arrow_back_ios : Icons.menu,
-                              color: Colors.orange,
-                            ),
-                            onPressed: toggleSidebar,
-                          ),
-                          const SizedBox(width: 10),
-                          const Text(
-                            "Manager - Menu Management",
-                            style: TextStyle(
-                              fontSize: 22,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Container(height: 3, color: Colors.orange),
+                    // === TOP BAR ===
+Padding(
+  padding: const EdgeInsets.fromLTRB(24, 20, 24, 10),
+  child: Container(
+    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+    decoration: BoxDecoration(
+      color: Colors.white,
+      borderRadius: BorderRadius.circular(12),
+      boxShadow: [
+        BoxShadow(
+          color: Colors.black.withOpacity(0.15),
+          blurRadius: 8,
+          offset: const Offset(0, 4),
+        ),
+      ],
+    ),
+    child: Row(
+      children: [
+        IconButton(
+          icon: Icon(
+            isSidebarOpen ? Icons.arrow_back_ios : Icons.menu,
+            color: Colors.orange,
+          ),
+          onPressed: toggleSidebar,
+        ),
+        const SizedBox(width: 10),
+        Text(
+          "Manager - Menu Management",
+          style: GoogleFonts.poppins(
+            fontSize: 22,
+            fontWeight: FontWeight.bold,
+            color: Colors.black87,
+          ),
+        ),
+        const Spacer(),
+        ElevatedButton.icon(
+          onPressed: onShowHiddenToggle,
+          icon: Icon(
+            showHidden ? Icons.visibility : Icons.visibility_off,
+            color: Colors.white,
+          ),
+          label: Text(
+            showHidden ? "Visible Menu" : "Hidden Menu",
+            style: GoogleFonts.poppins(
+              fontSize: 14,
+              color: Colors.white,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+          style: ElevatedButton.styleFrom(
+            backgroundColor: showHidden ? Colors.green : Colors.redAccent,
+            padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 12),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(8),
+            ),
+          ),
+        ),
+        const SizedBox(width: 12),
+        ElevatedButton.icon(
+          onPressed: onAddEntry,
+          icon: const Icon(Icons.add, color: Colors.white),
+          label: Text(
+            "Add Menu",
+            style: GoogleFonts.poppins(
+              fontSize: 14,
+              color: Colors.white,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Colors.orange,
+            padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 12),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(8),
+            ),
+          ),
+        ),
+      ],
+    ),
+  ),
+),
 
                     // MAIN CONTENT
                     Expanded(
@@ -332,330 +386,169 @@ class MenuManagementPageUI extends StatelessWidget {
                               child: Column(
                                 children: [
                                   // -------------------- MENU TABLE --------------------
-                                  Stack(
-                                    children: [
-                                      Container(
-                                        constraints: BoxConstraints(
-                                          maxWidth:
-                                              MediaQuery.of(context).size.width *
-                                                  0.95,
-                                        ),
-                                        margin: const EdgeInsets.only(top: 100),
-                                        padding: const EdgeInsets.all(16),
-                                        decoration: BoxDecoration(
-                                          color: const Color.fromARGB(
-                                            255,
-                                            37,
-                                            37,
-                                            37,
-                                          ).withOpacity(0.85),
-                                          borderRadius:
-                                              BorderRadius.circular(12),
-                                          boxShadow: const [
-                                            BoxShadow(
-                                              color: Colors.black26,
-                                              blurRadius: 8,
-                                              offset: Offset(2, 2),
-                                            ),
-                                          ],
-                                        ),
-                                        child: SingleChildScrollView(
-                                          scrollDirection: Axis.horizontal,
-                                          child: ConstrainedBox(
-                                            constraints: const BoxConstraints(
-                                                minWidth: 700),
-                                            child: DataTable(
-                                              sortColumnIndex: sortColumnIndex,
-                                              sortAscending: sortAscending,
-                                              columnSpacing: 40,
-                                              headingRowHeight: 56,
-                                              dataRowHeight: 56,
-                                              columns: [
-                                                const DataColumn(
-                                                  label: Text("Image",
-                                                      style: TextStyle(
-                                                          color: Colors.white)),
-                                                ),
-                                                DataColumn(
-                                                  label: const Text(
-                                                    "Product Name",
-                                                    style: TextStyle(
-                                                        color: Colors.white),
-                                                  ),
-                                                  onSort: (col, asc) => onSort(
-                                                    (m) => m['name'] ?? '',
-                                                    col,
-                                                    asc,
-                                                  ),
-                                                ),
-                                                DataColumn(
-                                                  label: const Text("Price",
-                                                      style: TextStyle(
-                                                          color: Colors.white)),
-                                                  onSort: (col, asc) => onSort(
-                                                    (m) =>
-                                                        double.tryParse(
-                                                                m['price']
-                                                                        ?.toString() ??
-                                                                    "0") ??
-                                                        0,
-                                                    col,
-                                                    asc,
-                                                  ),
-                                                ),
-                                                const DataColumn(
-                                                  label: Text("Description",
-                                                      style: TextStyle(
-                                                          color: Colors.white)),
-                                                ),
-                                                const DataColumn(
-                                                  label: Text("Category",
-                                                      style: TextStyle(
-                                                          color: Colors.white)),
-                                                ),
-                                                const DataColumn(
-                                                  label: Text("Actions",
-                                                      style: TextStyle(
-                                                          color: Colors.white)),
-                                                ),
-                                              ],
-                                              rows: filteredMenuItems
-                                                  .map<DataRow>((item) {
-                                                final id = int.parse(
-                                                    item['id'].toString());
-                                                return DataRow(
-                                                  cells: [
-                                                    DataCell(
-                                                      item['image'] != null &&
-                                                              item['image']
-                                                                  .toString()
-                                                                  .isNotEmpty
-                                                          ? Image.network(
-                                                              item['image']
-                                                                  .toString(),
-                                                              width: 50,
-                                                              height: 50,
-                                                              fit: BoxFit.cover,
-                                                            )
-                                                          : const Icon(
-                                                              Icons
-                                                                  .image_not_supported,
-                                                              color:
-                                                                  Colors.grey,
-                                                            ),
-                                                    ),
-                                                    DataCell(
-                                                      Text(
-                                                        item['name'] ??
-                                                            'Unnamed',
-                                                        style: const TextStyle(
-                                                            color:
-                                                                Colors.white70),
-                                                      ),
-                                                      onTap: () {
-                                                        onViewIngredients(id);
-                                                        _showIngredientsPopup(
-                                                            context);
-                                                      },
-                                                    ),
-                                                    DataCell(Text(
-                                                      "₱${item['price']}",
-                                                      style: const TextStyle(
-                                                          color:
-                                                              Colors.white70),
-                                                    )),
-                                                    DataCell(SizedBox(
-                                                      width: 200,
-                                                      child: Text(
-                                                        item['description'] ??
-                                                            "No description",
-                                                        overflow: TextOverflow
-                                                            .ellipsis,
-                                                        style: const TextStyle(
-                                                            color:
-                                                                Colors.white70),
-                                                      ),
-                                                    )),
-                                                    DataCell(Text(
-                                                      item['category'] ?? "",
-                                                      style: const TextStyle(
-                                                          color:
-                                                              Colors.white70),
-                                                    )),
-DataCell(
-  FittedBox(
-    fit: BoxFit.scaleDown,
-    child: Row(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        // 🟦 Edit
-        Container(
-          decoration: BoxDecoration(
-            color: Colors.blue.withOpacity(0.15),
-            borderRadius: BorderRadius.circular(8),
+ Stack(
+  children: [
+    Container(
+      constraints: BoxConstraints(
+        maxWidth: MediaQuery.of(context).size.width * 0.95,
+      ),
+      margin: const EdgeInsets.only(top: 100),
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: Colors.white, // updated from dark to light
+        borderRadius: BorderRadius.circular(12),
+        boxShadow: const [
+          BoxShadow(
+            color: Colors.black12,
+            blurRadius: 8,
+            offset: Offset(0, 3),
           ),
-          child: IconButton(
-            icon: const Icon(Icons.edit, color: Colors.blue, size: 24),
-            tooltip: "Edit Menu",
-            onPressed: () => onEditMenu(item),
-          ),
-        ),
-        const SizedBox(width: 6),
-
-        // 🟩 Show / Hide
-        Container(
-          decoration: BoxDecoration(
-            color: (item['status'] == "visible" ? Colors.green : Colors.red)
-                .withOpacity(0.15),
-            borderRadius: BorderRadius.circular(8),
-          ),
-          child: IconButton(
-            icon: Icon(
-              item['status'] == "visible"
-                  ? Icons.visibility
-                  : Icons.visibility_off,
-              color: item['status'] == "visible" ? Colors.green : Colors.red,
-              size: 24,
+        ],
+      ),
+      child: SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(minWidth: 700),
+          child: DataTable(
+            sortColumnIndex: sortColumnIndex,
+            sortAscending: sortAscending,
+            headingRowColor: MaterialStateProperty.all(Colors.orange.shade100),
+            headingTextStyle: const TextStyle(
+              fontWeight: FontWeight.bold,
+              color: Colors.black87,
             ),
-            tooltip:
-                item['status'] == "visible" ? "Hide Menu" : "Show Menu",
-            onPressed: () => onToggleMenu(
-              int.parse(item['id'].toString()),
-              item['status'],
+            dataTextStyle: const TextStyle(
+              color: Colors.black87,
+              fontSize: 15,
             ),
+            dividerThickness: 1,
+            horizontalMargin: 24,
+            columnSpacing: 40,
+            border: TableBorder(
+              horizontalInside: BorderSide(
+                width: 0.5,
+                color: Colors.grey.shade300,
+              ),
+            ),
+            columns: [
+              const DataColumn(label: Text("Image")),
+              DataColumn(
+                label: const Text("Product Name"),
+                onSort: (col, asc) => onSort(
+                  (m) => m['name'] ?? '',
+                  col,
+                  asc,
+                ),
+              ),
+              DataColumn(
+                label: const Text("Price"),
+                onSort: (col, asc) => onSort(
+                  (m) => double.tryParse(m['price']?.toString() ?? "0") ?? 0,
+                  col,
+                  asc,
+                ),
+              ),
+              const DataColumn(label: Text("Description")),
+              const DataColumn(label: Text("Category")),
+              const DataColumn(label: Text("Actions")),
+            ],
+            rows: filteredMenuItems.map<DataRow>((item) {
+              final id = int.parse(item['id'].toString());
+              return DataRow(
+                color: MaterialStateProperty.resolveWith<Color?>(
+                  (states) => filteredMenuItems.indexOf(item).isEven
+                      ? Colors.grey[50]
+                      : Colors.white,
+                ),
+                cells: [
+                  DataCell(
+                    item['image'] != null && item['image'].toString().isNotEmpty
+                        ? Image.network(item['image'], width: 50, height: 50, fit: BoxFit.cover)
+                        : const Icon(Icons.image_not_supported, color: Colors.grey),
+                  ),
+                  DataCell(
+                    Text(item['name'] ?? 'Unnamed'),
+                    onTap: () {
+                      onViewIngredients(id);
+                      _showIngredientsPopup(context);
+                    },
+                  ),
+                  DataCell(Text("₱${item['price']}")),
+                  DataCell(SizedBox(
+                    width: 200,
+                    child: Text(
+                      item['description'] ?? "No description",
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  )),
+                  DataCell(Text(item['category'] ?? "")),
+                  DataCell(Row(
+                    children: [
+                      // Edit
+                      Container(
+                        decoration: BoxDecoration(
+                          color: Colors.blue.withOpacity(0.15),
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: IconButton(
+                          icon: const Icon(Icons.edit, color: Colors.blue, size: 24),
+                          tooltip: "Edit Menu",
+                          onPressed: () => onEditMenu(item),
+                        ),
+                      ),
+                      const SizedBox(width: 6),
+                      // Show / Hide
+                      Container(
+                        decoration: BoxDecoration(
+                          color: (item['status'] == "visible" ? Colors.green : Colors.red)
+                              .withOpacity(0.15),
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: IconButton(
+                          icon: Icon(
+                            item['status'] == "visible"
+                                ? Icons.visibility
+                                : Icons.visibility_off,
+                            color: item['status'] == "visible" ? Colors.green : Colors.red,
+                            size: 24,
+                          ),
+                          tooltip: item['status'] == "visible" ? "Hide Menu" : "Show Menu",
+                          onPressed: () => onToggleMenu(
+                            int.parse(item['id'].toString()),
+                            item['status'],
+                          ),
+                        ),
+                      ),
+                      const SizedBox(width: 6),
+                      // Add Ingredient
+                      Container(
+                        decoration: BoxDecoration(
+                          color: Colors.orange.withOpacity(0.15),
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: IconButton(
+                          icon: const Icon(Icons.playlist_add, color: Colors.orange, size: 24),
+                          tooltip: "Add Ingredient",
+                          onPressed: () {
+                            onViewIngredients(id);
+                            if (selectedMenuIngredients.isNotEmpty) {
+                              _showIngredientsPopup(context);
+                            }
+                          },
+                        ),
+                      ),
+                    ],
+                  )),
+                ],
+              );
+            }).toList(),
           ),
         ),
-        const SizedBox(width: 6),
-
-        // 🟧 Add Ingredient
-        Container(
-          decoration: BoxDecoration(
-            color: Colors.orange.withOpacity(0.15),
-            borderRadius: BorderRadius.circular(8),
-          ),
-          child: IconButton(
-            icon: const Icon(Icons.playlist_add, color: Colors.orange, size: 24),
-            tooltip: "Add Ingredient",
-            onPressed: () {
-              onViewIngredients(int.parse(item['id'].toString()));
-              if (selectedMenuIngredients.isNotEmpty) {
-                _showIngredientsPopup(context);
-              }
-            },
-          ),
-        ),
-      ],
+      ),
     ),
-  ),
+  ],
 ),
 
-                                                  ],
-                                                );
-                                              }).toList(),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-
-                                      // FLOATING BUTTONS
-                                      Positioned(
-                                        right: 20,
-                                        top: 35,
-                                        child: Row(
-                                          children: [
-                                            SizedBox(
-                                              height: 40,
-                                              child: InkWell(
-                                                onTap: onShowHiddenToggle,
-                                                borderRadius:
-                                                    BorderRadius.circular(12),
-                                                child: Container(
-                                                  padding: const EdgeInsets
-                                                      .symmetric(
-                                                      horizontal: 16),
-                                                  decoration: BoxDecoration(
-                                                    color: showHidden
-                                                        ? Colors.green
-                                                            .withOpacity(0.9)
-                                                        : Colors.red
-                                                            .withOpacity(0.9),
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            12),
-                                                  ),
-                                                  child: Row(
-                                                    children: [
-                                                      Icon(
-                                                        showHidden
-                                                            ? Icons.visibility
-                                                            : Icons
-                                                                .visibility_off,
-                                                        color: Colors.white,
-                                                        size: 20,
-                                                      ),
-                                                      const SizedBox(width: 8),
-                                                      Text(
-                                                        showHidden
-                                                            ? "Visible Menu"
-                                                            : "Hidden Menu",
-                                                        style: const TextStyle(
-                                                            color: Colors.white,
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .bold),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                            const SizedBox(width: 10),
-                                            SizedBox(
-                                              height: 40,
-                                              child: InkWell(
-                                                onTap: onAddEntry,
-                                                borderRadius:
-                                                    BorderRadius.circular(12),
-                                                child: Container(
-                                                  padding: const EdgeInsets
-                                                      .symmetric(
-                                                      horizontal: 16),
-                                                  decoration: BoxDecoration(
-                                                    color: Colors.grey[850]!
-                                                        .withOpacity(0.9),
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            12),
-                                                  ),
-                                                  child: Row(
-                                                    children: [
-                                                      SizedBox(
-                                                        width: 20,
-                                                        height: 20,
-                                                        child: Image.asset(
-                                                          "assets/images/add.png",
-                                                          fit: BoxFit.contain,
-                                                        ),
-                                                      ),
-                                                      const SizedBox(width: 8),
-                                                      const Text(
-                                                        "Add Menu",
-                                                        style: TextStyle(
-                                                          color: Colors.white,
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ],
-                                  ),
                                 ],
                               ),
                             ),

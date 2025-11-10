@@ -425,6 +425,7 @@ class _ProductFormDialogState extends State<ProductFormDialog> {
     "Pasta",
     "Pinoy All Time Fave Meals",
     "Pizza",
+    "Drinks",
   ];
 
   @override
