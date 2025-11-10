@@ -178,18 +178,18 @@ class MenuManagementPageUI extends StatelessWidget {
       body: Stack(
         children: [
           // === BACKGROUND GRADIENT ===
-Container(
-  decoration: BoxDecoration(
-    gradient: LinearGradient(
-      colors: [
-        const Color(0xFFF6F7FB),
-        Colors.white.withOpacity(0.9),
-      ],
-      begin: Alignment.topLeft,
-      end: Alignment.bottomRight,
-    ),
-  ),
-),
+          Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: [
+                  const Color(0xFFF6F7FB),
+                  Colors.white.withOpacity(0.9),
+                ],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+              ),
+            ),
+          ),
 
           Row(
             children: [
@@ -297,258 +297,291 @@ Container(
                 child: Column(
                   children: [
                     // === TOP BAR ===
-Padding(
-  padding: const EdgeInsets.fromLTRB(24, 20, 24, 10),
-  child: Container(
-    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-    decoration: BoxDecoration(
-      color: Colors.white,
-      borderRadius: BorderRadius.circular(12),
-      boxShadow: [
-        BoxShadow(
-          color: Colors.black.withOpacity(0.15),
-          blurRadius: 8,
-          offset: const Offset(0, 4),
-        ),
-      ],
-    ),
-    child: Row(
-      children: [
-        IconButton(
-          icon: Icon(
-            isSidebarOpen ? Icons.arrow_back_ios : Icons.menu,
-            color: Colors.orange,
-          ),
-          onPressed: toggleSidebar,
-        ),
-        const SizedBox(width: 10),
-        Text(
-          "Manager - Menu Management",
-          style: GoogleFonts.poppins(
-            fontSize: 22,
-            fontWeight: FontWeight.bold,
-            color: Colors.black87,
-          ),
-        ),
-        const Spacer(),
-        ElevatedButton.icon(
-          onPressed: onShowHiddenToggle,
-          icon: Icon(
-            showHidden ? Icons.visibility : Icons.visibility_off,
-            color: Colors.white,
-          ),
-          label: Text(
-            showHidden ? "Visible Menu" : "Hidden Menu",
-            style: GoogleFonts.poppins(
-              fontSize: 14,
-              color: Colors.white,
-              fontWeight: FontWeight.w500,
-            ),
-          ),
-          style: ElevatedButton.styleFrom(
-            backgroundColor: showHidden ? Colors.green : Colors.redAccent,
-            padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 12),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(8),
-            ),
-          ),
-        ),
-        const SizedBox(width: 12),
-        ElevatedButton.icon(
-          onPressed: onAddEntry,
-          icon: const Icon(Icons.add, color: Colors.white),
-          label: Text(
-            "Add Menu",
-            style: GoogleFonts.poppins(
-              fontSize: 14,
-              color: Colors.white,
-              fontWeight: FontWeight.w500,
-            ),
-          ),
-          style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.orange,
-            padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 12),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(8),
-            ),
-          ),
-        ),
-      ],
-    ),
-  ),
-),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(24, 20, 24, 10),
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 16, vertical: 10),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(12),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.15),
+                              blurRadius: 8,
+                              offset: const Offset(0, 4),
+                            ),
+                          ],
+                        ),
+                        child: Row(
+                          children: [
+                            IconButton(
+                              icon: Icon(
+                                isSidebarOpen
+                                    ? Icons.arrow_back_ios
+                                    : Icons.menu,
+                                color: Colors.orange,
+                              ),
+                              onPressed: toggleSidebar,
+                            ),
+                            const SizedBox(width: 10),
+                            Text(
+                              "Manager - Menu Management",
+                              style: GoogleFonts.poppins(
+                                fontSize: 22,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black87,
+                              ),
+                            ),
+                            const Spacer(),
+                            ElevatedButton.icon(
+                              onPressed: onShowHiddenToggle,
+                              icon: Icon(
+                                showHidden
+                                    ? Icons.visibility
+                                    : Icons.visibility_off,
+                                color: Colors.white,
+                              ),
+                              label: Text(
+                                showHidden
+                                    ? "Visible Menu"
+                                    : "Hidden Menu",
+                                style: GoogleFonts.poppins(
+                                  fontSize: 14,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: showHidden
+                                    ? Colors.green
+                                    : Colors.redAccent,
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 18, vertical: 12),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                              ),
+                            ),
+                            const SizedBox(width: 12),
+                            ElevatedButton.icon(
+                              onPressed: onAddEntry,
+                              icon: const Icon(Icons.add, color: Colors.white),
+                              label: Text(
+                                "Add Menu",
+                                style: GoogleFonts.poppins(
+                                  fontSize: 14,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.orange,
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 18, vertical: 12),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
 
-                    // MAIN CONTENT
+                    // === MAIN CONTENT ===
                     Expanded(
                       child: isLoading
                           ? const Center(child: CircularProgressIndicator())
                           : SingleChildScrollView(
                               child: Column(
                                 children: [
-                                  // -------------------- MENU TABLE --------------------
- Stack(
-  children: [
-    Container(
-      constraints: BoxConstraints(
-        maxWidth: MediaQuery.of(context).size.width * 0.95,
-      ),
-      margin: const EdgeInsets.only(top: 100),
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: Colors.white, // updated from dark to light
-        borderRadius: BorderRadius.circular(12),
-        boxShadow: const [
-          BoxShadow(
-            color: Colors.black12,
-            blurRadius: 8,
-            offset: Offset(0, 3),
+                                  Stack(
+                                    children: [
+                                      Container(
+                                        constraints: BoxConstraints(
+                                          maxWidth: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.95,
+                                        ),
+                                        margin: const EdgeInsets.symmetric(horizontal: 50, vertical: 20),
+                                        padding: const EdgeInsets.all(16),
+                                        decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          borderRadius:
+                                              BorderRadius.circular(12),
+                                          boxShadow: const [
+                                            BoxShadow(
+                                              color: Colors.black12,
+                                              blurRadius: 8,
+                                              offset: Offset(0, 3),
+                                            ),
+                                          ],
+                                        ),
+                                        child: LayoutBuilder(
+  builder: (context, constraints) {
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      child: ConstrainedBox(
+        // expands the table to fill available width, but scrolls if smaller
+        constraints: BoxConstraints(minWidth: constraints.maxWidth),
+        child: DataTable(
+          sortColumnIndex: sortColumnIndex,
+          sortAscending: sortAscending,
+          headingRowColor:
+              MaterialStateProperty.all(Colors.orange.shade100),
+          headingTextStyle: const TextStyle(
+            fontWeight: FontWeight.bold,
+            color: Colors.black87,
           ),
-        ],
-      ),
-      child: SingleChildScrollView(
-        scrollDirection: Axis.horizontal,
-        child: ConstrainedBox(
-          constraints: const BoxConstraints(minWidth: 700),
-          child: DataTable(
-            sortColumnIndex: sortColumnIndex,
-            sortAscending: sortAscending,
-            headingRowColor: MaterialStateProperty.all(Colors.orange.shade100),
-            headingTextStyle: const TextStyle(
-              fontWeight: FontWeight.bold,
-              color: Colors.black87,
+          dataTextStyle: const TextStyle(
+            color: Colors.black87,
+            fontSize: 15,
+          ),
+          dividerThickness: 1,
+          horizontalMargin: 24,
+          columnSpacing: 40,
+          border: TableBorder(
+            horizontalInside: BorderSide(
+              width: 0.5,
+              color: Colors.grey.shade300,
             ),
-            dataTextStyle: const TextStyle(
-              color: Colors.black87,
-              fontSize: 15,
-            ),
-            dividerThickness: 1,
-            horizontalMargin: 24,
-            columnSpacing: 40,
-            border: TableBorder(
-              horizontalInside: BorderSide(
-                width: 0.5,
-                color: Colors.grey.shade300,
+          ),
+          columns: [
+            const DataColumn(label: Text("Image")),
+            DataColumn(
+              label: const Text("Product Name"),
+              onSort: (col, asc) => onSort(
+                (m) => m['name'] ?? '',
+                col,
+                asc,
               ),
             ),
-            columns: [
-              const DataColumn(label: Text("Image")),
-              DataColumn(
-                label: const Text("Product Name"),
-                onSort: (col, asc) => onSort(
-                  (m) => m['name'] ?? '',
-                  col,
-                  asc,
-                ),
+            DataColumn(
+              label: const Text("Price"),
+              onSort: (col, asc) => onSort(
+                (m) => double.tryParse(
+                        m['price']?.toString() ?? "0") ??
+                    0,
+                col,
+                asc,
               ),
-              DataColumn(
-                label: const Text("Price"),
-                onSort: (col, asc) => onSort(
-                  (m) => double.tryParse(m['price']?.toString() ?? "0") ?? 0,
-                  col,
-                  asc,
-                ),
+            ),
+            const DataColumn(label: Text("Description")),
+            const DataColumn(label: Text("Category")),
+            const DataColumn(label: Text("Actions")),
+          ],
+          rows: filteredMenuItems.map<DataRow>((item) {
+            final id = int.parse(item['id'].toString());
+            return DataRow(
+              color: MaterialStateProperty.resolveWith<Color?>(
+                (states) => filteredMenuItems.indexOf(item).isEven
+                    ? Colors.grey[50]
+                    : Colors.white,
               ),
-              const DataColumn(label: Text("Description")),
-              const DataColumn(label: Text("Category")),
-              const DataColumn(label: Text("Actions")),
-            ],
-            rows: filteredMenuItems.map<DataRow>((item) {
-              final id = int.parse(item['id'].toString());
-              return DataRow(
-                color: MaterialStateProperty.resolveWith<Color?>(
-                  (states) => filteredMenuItems.indexOf(item).isEven
-                      ? Colors.grey[50]
-                      : Colors.white,
+              cells: [
+                DataCell(
+                  item['image'] != null &&
+                          item['image'].toString().isNotEmpty
+                      ? Image.network(item['image'],
+                          width: 50, height: 50, fit: BoxFit.cover)
+                      : const Icon(Icons.image_not_supported,
+                          color: Colors.grey),
                 ),
-                cells: [
-                  DataCell(
-                    item['image'] != null && item['image'].toString().isNotEmpty
-                        ? Image.network(item['image'], width: 50, height: 50, fit: BoxFit.cover)
-                        : const Icon(Icons.image_not_supported, color: Colors.grey),
+                DataCell(
+                  Text(item['name'] ?? 'Unnamed'),
+                  onTap: () {
+                    onViewIngredients(id);
+                    _showIngredientsPopup(context);
+                  },
+                ),
+                DataCell(Text("₱${item['price']}")),
+                DataCell(SizedBox(
+                  width: 200,
+                  child: Text(
+                    item['description'] ?? "No description",
+                    overflow: TextOverflow.ellipsis,
                   ),
-                  DataCell(
-                    Text(item['name'] ?? 'Unnamed'),
-                    onTap: () {
-                      onViewIngredients(id);
-                      _showIngredientsPopup(context);
-                    },
-                  ),
-                  DataCell(Text("₱${item['price']}")),
-                  DataCell(SizedBox(
-                    width: 200,
-                    child: Text(
-                      item['description'] ?? "No description",
-                      overflow: TextOverflow.ellipsis,
+                )),
+                DataCell(Text(item['category'] ?? "")),
+                DataCell(Row(
+                  children: [
+                    // Edit
+                    Container(
+                      decoration: BoxDecoration(
+                        color: Colors.blue.withOpacity(0.15),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: IconButton(
+                        icon: const Icon(Icons.edit,
+                            color: Colors.blue, size: 24),
+                        tooltip: "Edit Menu",
+                        onPressed: () => onEditMenu(item),
+                      ),
                     ),
-                  )),
-                  DataCell(Text(item['category'] ?? "")),
-                  DataCell(Row(
-                    children: [
-                      // Edit
-                      Container(
-                        decoration: BoxDecoration(
-                          color: Colors.blue.withOpacity(0.15),
-                          borderRadius: BorderRadius.circular(8),
+                    const SizedBox(width: 6),
+                    // Show / Hide
+                    Container(
+                      decoration: BoxDecoration(
+                        color: (item['status'] == "visible"
+                                ? Colors.green
+                                : Colors.red)
+                            .withOpacity(0.15),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: IconButton(
+                        icon: Icon(
+                          item['status'] == "visible"
+                              ? Icons.visibility
+                              : Icons.visibility_off,
+                          color: item['status'] == "visible"
+                              ? Colors.green
+                              : Colors.red,
+                          size: 24,
                         ),
-                        child: IconButton(
-                          icon: const Icon(Icons.edit, color: Colors.blue, size: 24),
-                          tooltip: "Edit Menu",
-                          onPressed: () => onEditMenu(item),
+                        tooltip: item['status'] == "visible"
+                            ? "Hide Menu"
+                            : "Show Menu",
+                        onPressed: () => onToggleMenu(
+                          int.parse(item['id'].toString()),
+                          item['status'],
                         ),
                       ),
-                      const SizedBox(width: 6),
-                      // Show / Hide
-                      Container(
-                        decoration: BoxDecoration(
-                          color: (item['status'] == "visible" ? Colors.green : Colors.red)
-                              .withOpacity(0.15),
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        child: IconButton(
-                          icon: Icon(
-                            item['status'] == "visible"
-                                ? Icons.visibility
-                                : Icons.visibility_off,
-                            color: item['status'] == "visible" ? Colors.green : Colors.red,
-                            size: 24,
-                          ),
-                          tooltip: item['status'] == "visible" ? "Hide Menu" : "Show Menu",
-                          onPressed: () => onToggleMenu(
-                            int.parse(item['id'].toString()),
-                            item['status'],
-                          ),
-                        ),
+                    ),
+                    const SizedBox(width: 6),
+                    // Add Ingredient
+                    Container(
+                      decoration: BoxDecoration(
+                        color: Colors.orange.withOpacity(0.15),
+                        borderRadius: BorderRadius.circular(8),
                       ),
-                      const SizedBox(width: 6),
-                      // Add Ingredient
-                      Container(
-                        decoration: BoxDecoration(
-                          color: Colors.orange.withOpacity(0.15),
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        child: IconButton(
-                          icon: const Icon(Icons.playlist_add, color: Colors.orange, size: 24),
-                          tooltip: "Add Ingredient",
-                          onPressed: () {
-                            onViewIngredients(id);
-                            if (selectedMenuIngredients.isNotEmpty) {
-                              _showIngredientsPopup(context);
-                            }
-                          },
-                        ),
+                      child: IconButton(
+                        icon: const Icon(Icons.playlist_add,
+                            color: Colors.orange, size: 24),
+                        tooltip: "Add Ingredient",
+                        onPressed: () {
+                          onViewIngredients(id);
+                          if (selectedMenuIngredients.isNotEmpty) {
+                            _showIngredientsPopup(context);
+                          }
+                        },
                       ),
-                    ],
-                  )),
-                ],
-              );
-            }).toList(),
-          ),
+                    ),
+                  ],
+                )),
+              ],
+            );
+          }).toList(),
         ),
       ),
-    ),
-  ],
+    );
+  },
 ),
 
+                                      ),
+                                    ],
+                                  ),
                                 ],
                               ),
                             ),

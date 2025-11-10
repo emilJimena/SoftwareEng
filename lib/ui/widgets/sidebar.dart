@@ -191,7 +191,7 @@ class _SidebarState extends State<Sidebar> {
           ),
 
           _SidebarItem(
-            imagePath: "assets/images/dashboard.png",
+            imagePath: "assets/images/menu (2).png",
             label: "Menu",
             isOpen: widget.isSidebarOpen && showText,
             onTap: widget.onDashboard,
