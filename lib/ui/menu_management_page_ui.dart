@@ -482,47 +482,73 @@ class MenuManagementPageUI extends StatelessWidget {
                                                           color:
                                                               Colors.white70),
                                                     )),
-                                                    DataCell(Row(
-                                                      children: [
-                                                        IconButton(
-                                                          icon: const Icon(
-                                                              Icons.edit,
-                                                              color:
-                                                                  Colors.blue),
-                                                          onPressed: () =>
-                                                              onEditMenu(item),
-                                                        ),
-                                                        IconButton(
-                                                          icon: Icon(
-                                                            item['status'] ==
-                                                                    "visible"
-                                                                ? Icons
-                                                                    .visibility
-                                                                : Icons
-                                                                    .visibility_off,
-                                                            color: item[
-                                                                        'status'] ==
-                                                                    "visible"
-                                                                ? Colors.green
-                                                                : Colors.red,
-                                                          ),
-                                                          onPressed: () =>
-                                                              onToggleMenu(
-                                                            id,
-                                                            item['status'],
-                                                          ),
-                                                        ),
-                                                        IconButton(
-                                                          icon: const Icon(
-                                                              Icons.add,
-                                                              color: Colors
-                                                                  .orange),
-                                                          onPressed: () =>
-                                                              onAddIngredient(
-                                                                  id),
-                                                        ),
-                                                      ],
-                                                    )),
+DataCell(
+  FittedBox(
+    fit: BoxFit.scaleDown,
+    child: Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        // 🟦 Edit
+        Container(
+          decoration: BoxDecoration(
+            color: Colors.blue.withOpacity(0.15),
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: IconButton(
+            icon: const Icon(Icons.edit, color: Colors.blue, size: 24),
+            tooltip: "Edit Menu",
+            onPressed: () => onEditMenu(item),
+          ),
+        ),
+        const SizedBox(width: 6),
+
+        // 🟩 Show / Hide
+        Container(
+          decoration: BoxDecoration(
+            color: (item['status'] == "visible" ? Colors.green : Colors.red)
+                .withOpacity(0.15),
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: IconButton(
+            icon: Icon(
+              item['status'] == "visible"
+                  ? Icons.visibility
+                  : Icons.visibility_off,
+              color: item['status'] == "visible" ? Colors.green : Colors.red,
+              size: 24,
+            ),
+            tooltip:
+                item['status'] == "visible" ? "Hide Menu" : "Show Menu",
+            onPressed: () => onToggleMenu(
+              int.parse(item['id'].toString()),
+              item['status'],
+            ),
+          ),
+        ),
+        const SizedBox(width: 6),
+
+        // 🟧 Add Ingredient
+        Container(
+          decoration: BoxDecoration(
+            color: Colors.orange.withOpacity(0.15),
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: IconButton(
+            icon: const Icon(Icons.playlist_add, color: Colors.orange, size: 24),
+            tooltip: "Add Ingredient",
+            onPressed: () {
+              onViewIngredients(int.parse(item['id'].toString()));
+              if (selectedMenuIngredients.isNotEmpty) {
+                _showIngredientsPopup(context);
+              }
+            },
+          ),
+        ),
+      ],
+    ),
+  ),
+),
+
                                                   ],
                                                 );
                                               }).toList(),
